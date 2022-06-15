@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/06/14 21:43:01 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/06/15 20:10:18 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,56 @@ namespace ft
 		private:
 			size_type _size;
 			size_type _capacity;
+			pointer _p;
 			Alloc _alloc;
 
 		public:
 
+			// default constructor
 			explicit vector (const allocator_type& alloc = allocator_type())
 				: _size(0), _capacity(0)
 			{
-				this->_alloc = std::allocator<T>(alloc);
+				_alloc = alloc;
+				_p = _alloc.allocate(0);
 			}
 			
+			// fill constructor
 			explicit vector (size_type n, const value_type& val = value_type(),
                  const allocator_type& alloc = allocator_type())
 				 : _size(n), _capacity(0)
 			{
-
+				_alloc = alloc;
+				_p = _alloc.allocate(n);
+				for (size_type i = 0; i < n; i++)
+					_alloc.construct(&_p[i], val);
 			}
+
+			// range constructor
+			// template <class InputIterator> vector (InputIterator first, InputIterator last,
+            //      const allocator_type& alloc = allocator_type())
+			// {
+				
+			// }
+
+			// copy constructor
+			// vector (const vector& x)
+			// {
+				
+			// }
+
+			// destructor
+			// ~vector(void) 
+			// {
+			// 	clear();
+			// 	_alloc.deallocate(_start, capacity());
+			// }
+
+			// capacity functions
+			size_type size(void) const { return this->_size; }
+			size_type max_size (void) const { return _alloc.max_size(); }
+			size_type capacity (void) const { return this->_capacity; }
+			bool empty (void) const { return this->_size == 0; }
+			
 	}
 }
 
