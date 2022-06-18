@@ -76,3 +76,6 @@ relational operators
 Relational operators for vector (function template )
 swap
 Exchange contents of vectors (function template )
+
+
+// reading a lot on iterators
