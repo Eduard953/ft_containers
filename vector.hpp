@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/06/15 20:10:18 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/06/21 18:07:48 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 namespace ft
 {
+	template <
 	template < class T, class Alloc = std::allocator<T> > class vector
 	{
 		public:
