@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/06/21 18:07:48 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:19:09 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vec_iterator.hpp>
 
 namespace ft
 {
-	template <
 	template < class T, class Alloc = std::allocator<T> > class vector
 	{
 		public:
@@ -63,11 +63,15 @@ namespace ft
 			}
 
 			// range constructor
-			// template <class InputIterator> vector (InputIterator first, InputIterator last,
-            //      const allocator_type& alloc = allocator_type())
-			// {
-				
-			// }
+			template <class InputIterator> vector (InputIterator first, InputIterator last,
+                 const allocator_type& alloc = allocator_type())
+				 : _capacity(0)
+			{
+				_size = last - first;
+				_p = _alloc.allocate(_size);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&_p[i], *(first + i));
+			}
 
 			// copy constructor
 			// vector (const vector& x)
