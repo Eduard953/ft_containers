@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/07 16:19:09 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/13 17:42:44 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ namespace ft
 			typedef value_type&										reference;
 			typedef const value_type&								const_reference;
 			typedef value_type*										pointer;
-			typedef const value_type*								const_pointer;
-			// typedef V_iterator<value_type, false>					iterator;
-			// typedef V_iterator<value_type, true>					const_iterator;
+			typedef const value_type*								const_vecointer;
+			typedef V_iterator<value_type, false>					iterator;
+			typedef V_iterator<value_type, true>					const_iterator;
 			// typedef ft::reverse_iterator<iterator>					reverse_iterator;
 			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
@@ -38,7 +38,7 @@ namespace ft
 		private:
 			size_type _size;
 			size_type _capacity;
-			pointer _p;
+			pointer _vec;
 			Alloc _alloc;
 
 		public:
@@ -48,7 +48,7 @@ namespace ft
 				: _size(0), _capacity(0)
 			{
 				_alloc = alloc;
-				_p = _alloc.allocate(0);
+				_vec = _alloc.allocate(0);
 			}
 			
 			// fill constructor
@@ -57,9 +57,9 @@ namespace ft
 				 : _size(n), _capacity(0)
 			{
 				_alloc = alloc;
-				_p = _alloc.allocate(n);
+				_vec = _alloc.allocate(n);
 				for (size_type i = 0; i < n; i++)
-					_alloc.construct(&_p[i], val);
+					_alloc.construct(&_vec[i], val);
 			}
 
 			// range constructor
@@ -68,23 +68,34 @@ namespace ft
 				 : _capacity(0)
 			{
 				_size = last - first;
-				_p = _alloc.allocate(_size);
+				_vec = _alloc.allocate(_size);
 				for (size_type i = 0; i < _size; i++)
-					_alloc.construct(&_p[i], *(first + i));
+					_alloc.construct(&_vec[i], *(first + i));
 			}
 
 			// copy constructor
-			// vector (const vector& x)
-			// {
-				
-			// }
+			vector (const vector& other)
+			: _size(other._size), _capacity(other._capacity), _alloc(other._alloc)
+			{
+				_vec = _alloc.allocate(_size);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&_vec[i], other._vec[i]);
+			}
 
 			// destructor
-			// ~vector(void) 
-			// {
-			// 	clear();
-			// 	_alloc.deallocate(_start, capacity());
-			// }
+			~vector(void) 
+			{
+				clear();
+				_alloc.deallocate(_vec, capacity());
+			}
+
+			// iterators
+
+			iterator begin(){ return iterator(this->_vec); }
+			const iterator begin() const { return const_iterator(this->_vec); }
+
+			iterator end(){ return iterator(this->_vec + this->_size); }
+			const iterator end() const { return const_iterator(this->_vec + this->_size); }
 
 			// capacity functions
 			size_type size(void) const { return this->_size; }
