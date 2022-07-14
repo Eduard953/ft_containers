@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:19:09 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/13 18:32:49 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:07:41 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ namespace ft
 			reference operator*(void) const {return *_val;}
 			pointer operator->(void) const {return _val;}
 			
-			virtual vector_iterator& operator++() { _val++;	return *this;}
-			virtual vector_iterator& operator--() { _val--;	return *this;}
-			virtual vector_iterator operator++(int) { vector_iterator tmp(*this); ++(*this); return tmp;}
-			virtual vector_iterator operator--(int) { vector_iterator tmp(*this); --(*this); return tmp;}
+			vector_iterator& operator++() { _val++;	return *this;}
+			vector_iterator& operator--() { _val--;	return *this;}
+			vector_iterator operator++(int) { vector_iterator tmp(*this); ++(*this); return tmp;}
+			vector_iterator operator--(int) { vector_iterator tmp(*this); --(*this); return tmp;}
 
 			bool operator<(const vector_iterator& other) const {return _val < other._val;}
 			bool operator>(const vector_iterator& other) const {return _val > other._val;}
@@ -80,12 +80,6 @@ namespace ft
 			
 			friend vector_iterator operator+(const int n, vector_iterator other) {return vector_iterator(other._val + n);}
 			
-	}
-	template <typename T, bool B>
-	class reverse_vector_iterator : public vector_iterator
-	{
-		vector_iterator& operator++() { _val--;	return *this;}
-		vector_iterator& operator--() { _val++;	return *this;}
 	}
 } // namespace ft
 
