@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/13 17:42:44 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:29:34 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vec_iterator.hpp>
+#include <reverse_iterator.hpp>
 
 namespace ft
 {
@@ -30,8 +31,8 @@ namespace ft
 			typedef const value_type*								const_vecointer;
 			typedef V_iterator<value_type, false>					iterator;
 			typedef V_iterator<value_type, true>					const_iterator;
-			// typedef ft::reverse_iterator<iterator>					reverse_iterator;
-			// typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
 			typedef std::size_t										size_type;
 
@@ -97,12 +98,49 @@ namespace ft
 			iterator end(){ return iterator(this->_vec + this->_size); }
 			const iterator end() const { return const_iterator(this->_vec + this->_size); }
 
+			reverse_iterator rbegin(){ return reverse_iterator(end()); }
+			const reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
+			
+			reverse_iterator rend(){ return reverse_iterator(begin()); }
+			const reverse_iterator rend() const { return const_reverse_iterator(begin()); }
+
 			// capacity functions
 			size_type size(void) const { return this->_size; }
 			size_type max_size (void) const { return _alloc.max_size(); }
 			size_type capacity (void) const { return this->_capacity; }
 			bool empty (void) const { return this->_size == 0; }
 			
+			//void resize (size_type n, value_type val = value_type())
+			
+			// void reserve (size_type n)
+			
+			// modifiers
+
+			
+			// template <class InputIterator>
+  			// void assign (InputIterator first, InputIterator last)
+			
+			// void assign (size_type n, const value_type& val)
+
+			// void push_back (const value_type& val)
+
+			// void pop_back()
+
+			// iterator insert (iterator position, const value_type& val)
+
+   			// void insert (iterator position, size_type n, const value_type& val)
+
+    		// template <class InputIterator>
+    		// void insert (iterator position, InputIterator first, InputIterator last)
+
+			// iterator erase (iterator position)
+			
+			// iterator erase (iterator first, iterator last)	
+
+			// void swap (vector& x);
+
+			// void clear();
+
 	}
 }
 
