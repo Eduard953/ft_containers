@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:08:16 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/15 17:44:17 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:51:22 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ namespace ft
 
 	template <class Iterator>
 	bool operator>(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
-		return lhs.base() < lhs.base();
+		return lhs.base() < rhs.base();
 	}
 
 	template <class Iterator>
