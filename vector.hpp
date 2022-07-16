@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/15 18:29:34 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:30:19 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ namespace ft
 			reverse_iterator rend(){ return reverse_iterator(begin()); }
 			const reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
-			// capacity functions
+			// CAPACITY FUNCTIONS
 			size_type size(void) const { return this->_size; }
 			size_type max_size (void) const { return _alloc.max_size(); }
 			size_type capacity (void) const { return this->_capacity; }
@@ -114,7 +114,36 @@ namespace ft
 			
 			// void reserve (size_type n)
 			
-			// modifiers
+
+			// ELEMENT ACCESS
+			
+			reference operator[] (size_type n) { return *(_vec + n); }
+
+			const_reference operator[] (size_type n) const { return *(_vec + n); }
+
+			reference at (size_type n){
+				if (n >= _size)
+					throw std::out_of_range("out of range"); // add descriptive version
+				return *(_vec + n);
+			}
+			
+			const_reference at (size_type n) const{
+				if (n >= _size)
+					throw std::out_of_range("out of range"); // add descriptive version
+				return *(_vec + n);
+			}
+
+			reference front() { return this->_vec[0]; }
+
+			const_reference front() const { return this->_vec[0]; }
+
+			reference back() { return this->_vec[this->_size - 1]; }
+
+			const_reference back() const { return this->_vec[this->_size - 1]; }
+
+			
+			
+			// MODIFIERS
 
 			
 			// template <class InputIterator>
@@ -124,7 +153,11 @@ namespace ft
 
 			// void push_back (const value_type& val)
 
-			// void pop_back()
+			void pop_back()
+			{
+				_alloc.destroy(&_vec[_size - 1]);
+				_size--;
+			}
 
 			// iterator insert (iterator position, const value_type& val)
 
