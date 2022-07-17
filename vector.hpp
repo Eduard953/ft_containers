@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/16 18:30:19 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/17 14:47:27 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,29 @@ namespace ft
 			
 			// iterator erase (iterator first, iterator last)	
 
-			// void swap (vector& x);
+			void swap (vector& x)
+			{
+				size_type tmp_size = x._size;
+				allocator_type tmp_alloc = x._alloc;
+				pointer tmp_vec = x._vec;
+				size_type tmp_capacity = x._capacity;
 
-			// void clear();
+				x._size = this->_size;
+				x._alloc = this->_alloc;
+				x._vec = this->_vec;
+				x._capacity = this->_capacity;
+
+				this->_size = tmp_size;
+				this->_alloc = tmp_alloc;
+				this->_vec = tmp_vec;
+				this->_capacity = tmp_capacity;
+			}
+
+			void clear()
+			{
+				while (this->_size > 0)
+					pop_back();
+			}
 
 	}
 }
