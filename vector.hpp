@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/17 14:47:27 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:31:36 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,28 @@ namespace ft
 
 			// CAPACITY FUNCTIONS
 			size_type size(void) const { return this->_size; }
+
 			size_type max_size (void) const { return _alloc.max_size(); }
+
 			size_type capacity (void) const { return this->_capacity; }
+			
 			bool empty (void) const { return this->_size == 0; }
 			
 			//void resize (size_type n, value_type val = value_type())
 			
-			// void reserve (size_type n)
+			void reserve (size_type n)
+			{
+				if (n > this->max_size())
+					throw std::length_error("vector::reserve");
+				if (n > _capacity)
+				{
+					_capacity = n;
+					vector<value_type> tmp(*this);
+					for (size_type i = 0; i < _size; i++)
+					tmp._alloc.construct(&tmp._vec[i], _vec[i]);
+					swap(tmp);
+				}
+			}
 			
 
 			// ELEMENT ACCESS
@@ -145,11 +160,28 @@ namespace ft
 			
 			// MODIFIERS
 
+			template <class InputIterator>
+  			void assign (InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, int>::type* = 0)
+			{
+				size_type diff = last - first;
+				size_type i = 0;
+				reserve(diff);
+				_size = diff;
+				for (; first != last; first++)
+				{
+					_alloc.construct(&_vec[i], *first);
+					i++;
+				}
+			}
 			
-			// template <class InputIterator>
-  			// void assign (InputIterator first, InputIterator last)
-			
-			// void assign (size_type n, const value_type& val)
+			void assign (size_type n, const value_type& val)
+			{
+				reserve(n);
+				_size = n;
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(&_vec[i], val);
+			}
 
 			// void push_back (const value_type& val)
 
@@ -193,7 +225,7 @@ namespace ft
 				while (this->_size > 0)
 					pop_back();
 			}
-
+			
 	}
 }
 
