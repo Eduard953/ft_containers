@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/05 16:58:21 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:06:34 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,9 +218,21 @@ namespace ft
     		// template <class InputIterator>
     		// void insert (iterator position, InputIterator first, InputIterator last)
 
-			// iterator erase (iterator position)
+			iterator erase (iterator position)
+			{
+				for (size_type i = position - begin(), i < _size - i, i++)
+					_vec[i] = _vec[i+1];
+				size--;
+				_alloc.destroy(_vec + _size);
+				return (position);
+			}
 			
-			// iterator erase (iterator first, iterator last)	
+			iterator erase (iterator first, iterator last)
+			{
+				for (size_type i = last - first, i > 0, i--)
+					erase(first);
+				return (first);
+			}
 
 			void swap (vector& x)
 			{
