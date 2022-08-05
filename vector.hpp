@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/22 17:31:36 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:47:11 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,15 @@ namespace ft
 					_alloc.construct(&_vec[i], val);
 			}
 
-			// void push_back (const value_type& val)
+			void push_back (const value_type& val)
+			{
+				if (_size == 0 && _capacity == 0)
+					reserve(1);
+				else if (_size == _capacity)
+					reserve(_capacity * 2);
+				_alloc.construct(_vec + _size, val);
+				_size++;
+			}
 
 			void pop_back()
 			{
