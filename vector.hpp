@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/05 16:47:11 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:58:21 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,19 @@ namespace ft
 			
 			bool empty (void) const { return this->_size == 0; }
 			
-			//void resize (size_type n, value_type val = value_type())
+			void resize (size_type n, value_type val = value_type())
+			{
+				if (_size > n)
+					for (size_type i = _size; i > n; i--)
+						pop_back();
+				if (n > _size)
+				{
+					if (n > _capacity)
+						reserve(n);
+					for (size_type i = _size, i < n, i++)
+						push_back(val);
+				}
+			}
 			
 			void reserve (size_type n)
 			{
