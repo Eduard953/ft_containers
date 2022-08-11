@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/05 17:06:34 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:35:30 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,13 +211,44 @@ namespace ft
 				_size--;
 			}
 
-			// iterator insert (iterator position, const value_type& val)
+			iterator insert (iterator position, const value_type& val)
+			{
+				size_type it = position - begin();
+				insert(position, 1, val);
+				return(iterator(_vec + it));
+			}
 
-   			// void insert (iterator position, size_type n, const value_type& val)
+   			void insert (iterator position, size_type n, const value_type& val)
+			{
+				size_type it = position - begin();
+				if(n + size() > capacity())
+					reserve(size() + n);
+				for(size_type i = 0; i < m; i++)
+					_alloc.construct(_vec + _size + i, val);
+				for(int i = _size - 1; i >= 0 && i >= (int)it; i--)
+					_vec[i + n] = _vec[i];
+				for(size_type i = it; i < it + n; i++)
+					_vec[i] = val;
+				_size += n;
+			}
 
-    		// template <class InputIterator>
-    		// void insert (iterator position, InputIterator first, InputIterator last)
-
+    		template <class InputIterator>
+    		void insert( iterator position, InputIt first, InputIt last,
+			typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
+			{
+				size_type it = position - begin();
+				size_type count = last - first;
+				if(count + size() > capacity())
+					reserve(size() + count);
+				for(size_type i = 0; i < count; i++)
+					_alloc.construct(_vec + _size + i, *first);
+				for(int i = _size; i >= 0 && i >= (int)it; i--)
+					_vec[i + count] = _vec[i];
+				
+				for(size_type i = it; i < (it + count); i++)
+					_vec[i] = *first++;
+				_size += count;
+			}
 			iterator erase (iterator position)
 			{
 				for (size_type i = position - begin(), i < _size - i, i++)
