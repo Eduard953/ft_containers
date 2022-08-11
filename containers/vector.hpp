@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/11 13:35:30 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:44:21 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 #include <iostream>
 #include <stdexcept>
-#include <vec_iterator.hpp>
-#include <reverse_iterator.hpp>
+#include <../iterators/vec_iterator.hpp>
+#include <../iterators/reverse_iterator.hpp>
+#include <../utils/utils.hpp>
 
 namespace ft
 {

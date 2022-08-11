@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:19:09 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/14 18:07:41 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:40:03 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ namespace ft
 			typedef	std::size_t										size_type;
 			typedef long int										difference_type;
 
-			typedef typename choose<is_const, const T &, T &>::type	reference;
-			typedef typename choose<is_const, const T *, T *>::type	pointer;
+			typedef typename choose<B, const T &, T &>::type	reference;
+			typedef typename choose<B, const T *, T *>::type	pointer;
 			typedef T*												elem_ptr;
 			
 		private:
@@ -80,7 +80,7 @@ namespace ft
 			
 			friend vector_iterator operator+(const int n, vector_iterator other) {return vector_iterator(other._val + n);}
 			
-	}
+	};
 } // namespace ft
 
 
