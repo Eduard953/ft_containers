@@ -6,29 +6,31 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:08:16 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/07/15 17:51:22 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:04:49 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef  FT_REVERSE_ITERATOR_HPP
 	#define  FT_REVERSE_ITERATOR_HPP
 
+#include "vec_iterator.hpp"
+
 namespace ft
 {
 	template<class Iterator>
 	class reverse_iterator
 	{
-		private:
-			Iter _current;
 		public:
-			typedef Iter												iterator_type;
-			typedef typename iterator_traits<Iter>::iterator_category	iterator_category;
-			typedef typename iterator_traits<Iter>::difference_type		difference_type;
-			typedef typename iterator_traits<Iter>::reference			reference;
-			typedef typename iterator_traits<Iter>::pointer				pointer;
-
+			typedef Iterator												iterator_type;
+			typedef typename iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef typename iterator_traits<Iterator>::difference_type		difference_type;
+			typedef typename iterator_traits<Iterator>::reference			reference;
+			typedef typename iterator_traits<Iterator>::pointer				pointer;
+		protected:
+			iterator_type _current;
+		public:
 			// default constructor
-			reverse_iterator() : _current(iterator_type) {}
+			reverse_iterator() : _current() {}
 
 			// initialization constructor
 			explicit reverse_iterator(iterator_type it): _current(it) {}

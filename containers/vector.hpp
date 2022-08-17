@@ -6,7 +6,7 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 14:52:31 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/11 13:44:21 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:15:56 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ namespace ft
 			typedef const value_type&								const_reference;
 			typedef value_type*										pointer;
 			typedef const value_type*								const_vecointer;
-			typedef V_iterator<value_type, false>					iterator;
-			typedef V_iterator<value_type, true>					const_iterator;
+			typedef vector_iterator<value_type, false>					iterator;
+			typedef vector_iterator<value_type, true>					const_iterator;
 			typedef ft::reverse_iterator<iterator>					reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef std::ptrdiff_t									difference_type;
@@ -67,7 +67,7 @@ namespace ft
 			// range constructor
 			template <class InputIterator> vector (InputIterator first, InputIterator last,
                  const allocator_type& alloc = allocator_type())
-				 : _capacity(0)
+				 : _capacity(0), _alloc(alloc)
 			{
 				_size = last - first;
 				_vec = _alloc.allocate(_size);
@@ -123,7 +123,7 @@ namespace ft
 				{
 					if (n > _capacity)
 						reserve(n);
-					for (size_type i = _size, i < n, i++)
+					for (size_type i = _size; i < n; i++)
 						push_back(val);
 				}
 			}
@@ -224,7 +224,7 @@ namespace ft
 				size_type it = position - begin();
 				if(n + size() > capacity())
 					reserve(size() + n);
-				for(size_type i = 0; i < m; i++)
+				for(size_type i = 0; i < n; i++)
 					_alloc.construct(_vec + _size + i, val);
 				for(int i = _size - 1; i >= 0 && i >= (int)it; i--)
 					_vec[i + n] = _vec[i];
@@ -234,8 +234,8 @@ namespace ft
 			}
 
     		template <class InputIterator>
-    		void insert( iterator position, InputIt first, InputIt last,
-			typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0)
+    		void insert( iterator position, InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
 				size_type it = position - begin();
 				size_type count = last - first;
@@ -252,16 +252,16 @@ namespace ft
 			}
 			iterator erase (iterator position)
 			{
-				for (size_type i = position - begin(), i < _size - i, i++)
+				for (size_type i = position - begin(); i < _size - i; i++)
 					_vec[i] = _vec[i+1];
-				size--;
+				_size--;
 				_alloc.destroy(_vec + _size);
 				return (position);
 			}
 			
 			iterator erase (iterator first, iterator last)
 			{
-				for (size_type i = last - first, i > 0, i--)
+				for (size_type i = last - first; i > 0; i--)
 					erase(first);
 				return (first);
 			}
@@ -289,8 +289,7 @@ namespace ft
 				while (this->_size > 0)
 					pop_back();
 			}
-			
-	}
+	};
 }
 
 #endif // FT_VECTOR_HPP

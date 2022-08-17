@@ -6,12 +6,15 @@
 /*   By: ebeiline <ebeiline@42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:19:09 by ebeiline          #+#    #+#             */
-/*   Updated: 2022/08/11 15:40:03 by ebeiline         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:03:20 by ebeiline         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VEC_ITERATOR_HPP
 	#define VEC_ITERATOR_HPP
+
+#include "../utils/utils.hpp"
+#include "../utils/iterator_traits.hpp"
 
 namespace ft
 {	
@@ -36,7 +39,7 @@ namespace ft
 			vector_iterator(elem_ptr val) : _val(val) {}
 
 			// copy constructors
-			vector_iterator(const vector_iterator<T, false>& other) {_val = other.getVal}
+			vector_iterator(const vector_iterator<T, false>& other) {_val = other.getVal;}
 			
 			// destructor
 			~vector_iterator() {}
